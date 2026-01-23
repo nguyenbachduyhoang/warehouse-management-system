@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Plus, Search, Eye } from "lucide-react"
+import { AddOutboundModal } from "@/components/modals/add-outbound-modal"
 
 export default function OutboundOrdersPage() {
     const [orders, setOrders] = useState([
@@ -15,6 +16,10 @@ export default function OutboundOrdersPage() {
     ])
 
     const [searchTerm, setSearchTerm] = useState("")
+
+    const handleAddOrder = (newOrder: any) => {
+        setOrders([newOrder, ...orders])
+    }
 
     const getStatusColor = (status: string) => {
         switch (status) {
@@ -46,9 +51,7 @@ export default function OutboundOrdersPage() {
                         className="pl-10 bg-background border-border text-foreground"
                     />
                 </div>
-                <Button className="bg-primary hover:bg-primary/90 text-primary-foreground flex items-center gap-2">
-                    <Plus className="w-4 h-4" /> New Order
-                </Button>
+                <AddOutboundModal onAdd={handleAddOrder} />
             </div>
 
             {/* Summary Stats */}

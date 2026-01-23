@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Plus, Search, Eye, CheckCircle, Clock, AlertCircle } from "lucide-react"
+import { AddInboundModal } from "@/components/modals/add-inbound-modal"
 
 export default function InboundOrdersPage() {
     const [orders, setOrders] = useState([
@@ -36,6 +37,10 @@ export default function InboundOrdersPage() {
     ])
 
     const [searchTerm, setSearchTerm] = useState("")
+
+    const handleAddOrder = (newOrder: any) => {
+        setOrders([newOrder, ...orders])
+    }
 
     const getStatusColor = (status: string) => {
         switch (status) {
@@ -80,10 +85,7 @@ export default function InboundOrdersPage() {
                         className="pl-10 bg-background border-border text-foreground"
                     />
                 </div>
-                <Button className="bg-primary hover:bg-primary/90 text-primary-foreground flex items-center gap-2">
-                    <Plus className="w-4 h-4" />
-                    New Order
-                </Button>
+                <AddInboundModal onAdd={handleAddOrder} />
             </div>
 
             {/* Summary Cards */}

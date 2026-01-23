@@ -4,7 +4,8 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { Plus, Search, Edit2, Trash2 } from "lucide-react"
+import { Search, Edit2, Trash2 } from "lucide-react"
+import { AddProductModal } from "@/components/modals/add-product-modal"
 
 export default function ProductsPage() {
     const [products, setProducts] = useState([
@@ -16,6 +17,10 @@ export default function ProductsPage() {
     ])
 
     const [searchTerm, setSearchTerm] = useState("")
+
+    const handleAddProduct = (newProduct: any) => {
+        setProducts([...products, newProduct])
+    }
 
     const filteredProducts = products.filter(
         (p) =>
@@ -38,10 +43,7 @@ export default function ProductsPage() {
                         className="pl-10 bg-card border-border text-foreground placeholder:text-muted-foreground"
                     />
                 </div>
-                <Button className="bg-primary hover:bg-primary/90 text-primary-foreground flex items-center gap-2">
-                    <Plus className="w-4 h-4" />
-                    Add Product
-                </Button>
+                <AddProductModal onAdd={handleAddProduct} />
             </div>
 
             <Card className="bg-card border-border overflow-hidden">
